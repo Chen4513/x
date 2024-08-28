@@ -1,0 +1,1 @@
+Compared to the last step, the hopper must move relatively rightwards in the current step (regardless of how far it moves to the right) while reaching a vertical height of higher than 0.750m.
