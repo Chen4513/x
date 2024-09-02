@@ -19,4 +19,4 @@ python3 hopper_tutorial.py --mode=llm --teacher_model_path=LLM/RM/models/reward_
   - baseline: use the normalized potential difference rewards
   
 * `--teacher_model_path` the path to the reward model
-* `--name` the name of the logging data file (inside the folder \Experiments)
+* `--name` the name of the logging data file (inside the folder \Experiments)# 1
