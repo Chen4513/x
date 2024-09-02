@@ -80,7 +80,7 @@ max_grad_norm = 1.0
 
 frames_per_batch = 2048
 # For a complete training, bring the number of frames up to 1M
-total_frames = 200000
+total_frames = 500000
 
 
 
@@ -112,7 +112,7 @@ def main(args, csv_file_path):
         score_mean = args.score_mean
         score_std = args.score_std
 
-    base_env = GymEnv("HalfCheetah-v4", device=device)
+    base_env = GymEnv("HalfCheetah-v4", device=device, ctrl_cost_weight=0)
     env = TransformedEnv(
         base_env,
         Compose(
@@ -322,6 +322,7 @@ def main(args, csv_file_path):
             # number of steps (1000, which is our ``env`` horizon).
             # The ``rollout`` method of the ``env`` can take a policy as argument:
             # it will then execute this policy at each step.
+            print(f"Environment type: {type(env)}")
             with set_exploration_type(ExplorationType.MEAN), torch.no_grad():
                 # execute a rollout with the trained policy
                 eval_rollout = env.rollout(1000, policy_module)

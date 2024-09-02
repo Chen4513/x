@@ -59,17 +59,22 @@ def llm_rank(obs, new_obs, step_idx, base_prompt):
     return llm_val
 
 
-def rank_states(obs, new_obs, height_threshold = 0.75):
+def rank_states(obs, new_obs, height_threshold = 0.3, velocity_threshold=0.25):
     # what is our human preference in ranking
     old_height = obs[1]
     new_height = new_obs[1]
-    old_vel = obs[5]
-    new_vel = new_obs[5]
+    old_ang_vel = obs[6]
+    new_ang_vel = obs[6]
+
+    old_vel = obs[8]
+    new_vel = new_obs[8]
 
     old_x = obs[0]
     new_x = new_obs[0]
 
-    if old_height > height_threshold and new_height > height_threshold:
+    if new_height > 0.5 or (old_vel > new_vel and new_vel < 0.1) or new_ang_vel > 0.7:
+        return Ranking.LESSER
+    elif new_height < height_threshold and new_vel > velocity_threshold:
         if new_x > old_x:
             return Ranking.GREATER
         else:
@@ -79,6 +84,7 @@ def rank_states(obs, new_obs, height_threshold = 0.75):
             return Ranking.GREATER
         else:
             return Ranking.LESSER
+        
 
 
 def collect_ranking_data_llm(env:HalfCheetahEnv, filepath, llm_filepath, sample_size,start_id=0):

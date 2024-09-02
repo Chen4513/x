@@ -331,7 +331,7 @@ if __name__ == "__main__":
     #lr_list = [0.004, 0.004, 0.00004]
     # lr_list = [0.004, 0.0001, 0.0000001]
     # lr_list = [1e-06, 5e-06, 2e-06]
-    epochs = 65
+    epochs = 70
     train_batch_size = 16
     dataset_size = 999
     log_dir = "runs/lr0.004_train"
